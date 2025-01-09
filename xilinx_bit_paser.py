@@ -12,7 +12,7 @@ class XilinxHeaderParser:
         with open(self.file_path, "rb") as f:
             # Field 1: Header
             header_length = struct.unpack(">H", f.read(2))[0]  # Big-endian 2 bytes
-            f.read(header_length) # Skip header
+            f.read(header_length) # Skip header bytes
             key_length = struct.unpack(">H", f.read(2))[0]  # ??
             # Parse key-length-value fields
             while True:
@@ -53,8 +53,8 @@ if __name__ == "__main__":
     parser.add_argument("file_path", type=str, help="Path to the .bit file")
     args = parser.parse_args()
 
-    parser_instance = XilinxHeaderParser(args.file_path)
-    print("Design Name:", parser_instance.get_design_name())
-    print("Part Name:", parser_instance.get_part_name())
-    print("Date:", parser_instance.get_date())
-    print("Time:", parser_instance.get_time())
+    parser = XilinxHeaderParser(args.file_path)
+    print("Design Name:", parser.get_design_name())
+    print("Part Name:", parser.get_part_name())
+    print("Date:", parser.get_date())
+    print("Time:", parser.get_time())
